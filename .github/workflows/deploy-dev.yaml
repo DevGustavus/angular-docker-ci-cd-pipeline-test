@@ -1,0 +1,50 @@
+name: CI/CD Desenvolvimento (develop)
+
+on:
+  push:
+    branches:
+      - develop # Executa somente em pushes na branch develop
+
+jobs:
+  # 🧪 1️⃣ Etapa de Testes Unitários
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fonte
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+
+      - name: Executar testes unitários
+        run: npm test -- --watch=false --browsers=ChromeHeadless
+
+  # 🧱 2️⃣ Etapa de Build e Deploy com Docker + Render
+  build-and-deploy:
+    name: Build Angular & Deploy to Render (Desenvolvimento)
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout código fonte
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js e dependências
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+
+      - name: Testar build do Angular
+        run: npm run build
+
+      - name: Validar Docker build (sem subir imagem)
+        run: docker build -t angular-docker-test .
+
+      - name: Disparar deploy no Render (Desenvolvimento)
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL_DEV }}"
