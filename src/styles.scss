@@ -1,1 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./scss/fonts.scss";
+
+// ✅ Importa o Tailwind (em CSS puro)
+@import "./tailwind.css";

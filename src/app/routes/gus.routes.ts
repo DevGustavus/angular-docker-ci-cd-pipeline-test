@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const dockerRoutes: Routes = [
+export const gusRoutes: Routes = [
   {
     path: '',
     redirectTo: 'inicio',
