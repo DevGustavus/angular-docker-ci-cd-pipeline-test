@@ -120,13 +120,22 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "angular-docker-ci-cd-pipeline-test:build"
+          },
           "configurations": {
             "production": {
               "buildTarget": "angular-docker-ci-cd-pipeline-test:build:production"
             },
             "development": {
               "buildTarget": "angular-docker-ci-cd-pipeline-test:build:development"
+            },
+            "dvp": {
+              "buildTarget": "angular-docker-ci-cd-pipeline-test:build:dvp"
+            },
+            "hml": {
+              "buildTarget": "angular-docker-ci-cd-pipeline-test:build:hml"
             }
           },
           "defaultConfiguration": "development"
