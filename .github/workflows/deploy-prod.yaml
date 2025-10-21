@@ -22,11 +22,18 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      # 3️⃣ Executa os testes unitários
-      #- name: Executar testes unitários
-        #run: npm test -- --watch=false --browsers=ChromeHeadless
+      # 🔧 3️⃣ Substitui as variáveis no environment.dvp.ts
+      - name: Substituir variáveis de ambiente no Angular
+        run: |
+          sed -i "s|\$AMBIENTE|${{ vars.AMBIENTE }}|g" src/environments/environment.prod.ts
+          sed -i "s|\$IS_PRODUCTION|${{ vars.IS_PRODUCTION }}|g" src/environments/environment.prod.ts
+          sed -i "s|\$URL_API|${{ vars.URL_API }}|g" src/environments/environment.prod.ts
 
-  # 🧱 2️⃣ Etapa de Build e Deploy com Docker + Render
+      # 2️⃣ Executa os testes unitários
+      #- name: Executar testes unitários
+      #run: npm test -- --watch=false --browsers=ChromeHeadless
+
+  # 🧱 3️⃣ Etapa de Build e Deploy com Docker + Render
   build-and-deploy:
     name: Build Angular & Deploy to Render (Produção)
     runs-on: ubuntu-latest
@@ -44,21 +51,21 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      # 4️⃣ Copiar variáveis de ambiente do ambiente de produção
+      # 3️⃣ Copiar variáveis de ambiente do ambiente de produção
       - name: Definir variáveis de ambiente (Produção)
         run: |
           cp .env.prd .env
           echo "Arquivo .env.prd copiado para .env"
 
-      # 5️⃣ Build Angular usando o environment de produção
+      # 4️⃣ Build Angular usando o environment de produção
       - name: Testar build do Angular (production)
         run: npm run build -- --configuration=production
 
-      # 6️⃣ Valida o Dockerfile localmente
+      # 5️⃣ Valida o Dockerfile localmente
       - name: Validar Docker build (sem subir imagem)
         run: docker build -t angular-docker-test .
 
-      # 7️⃣ Dispara o deploy no Render via Webhook (Produção)
+      # 6️⃣ Dispara o deploy no Render via Webhook (Produção)
       - name: Disparar deploy no Render (Produção)
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL_PROD }}"

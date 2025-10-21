@@ -22,11 +22,18 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      # 3️⃣ Executa os testes unitários
-      #- name: Executar testes unitários
-        #run: npm test -- --watch=false --browsers=ChromeHeadless
+      # 🔧 3️⃣ Substitui as variáveis no environment.dvp.ts
+      - name: Substituir variáveis de ambiente no Angular
+        run: |
+          sed -i "s|\$AMBIENTE|${{ vars.AMBIENTE }}|g" src/environments/environment.dvp.ts
+          sed -i "s|\$IS_PRODUCTION|${{ vars.IS_PRODUCTION }}|g" src/environments/environment.dvp.ts
+          sed -i "s|\$URL_API|${{ vars.URL_API }}|g" src/environments/environment.dvp.ts
 
-  # 🧱 2️⃣ Etapa de Build e Deploy com Docker + Render
+      # 4️⃣ Executa os testes unitários
+      #- name: Executar testes unitários
+      #run: npm test -- --watch=false --browsers=ChromeHeadless
+
+  # 🧱 3️⃣ Etapa de Build e Deploy com Docker + Render
   build-and-deploy:
     name: Build Angular & Deploy to Render (Desenvolvimento)
     runs-on: ubuntu-latest
@@ -44,21 +51,15 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      # 3️⃣ Define variáveis de ambiente de desenvolvimento
-      - name: Definir variáveis de ambiente (Desenvolvimento)
-        run: |
-          cp .env.dvp .env
-          echo "✅ Arquivo .env.dvp copiado para .env"
-
-      # 4️⃣ Realiza build Angular usando o environment 'dvp'
+      # 3️⃣ Realiza build Angular usando o environment 'dvp'
       - name: Executar build do Angular (dvp)
         run: npm run build -- --configuration=dvp
 
-      # 5️⃣ Valida o Dockerfile localmente
+      # 4️⃣ Valida o Dockerfile localmente
       - name: Validar Docker build (sem subir imagem)
         run: docker build -t angular-docker-test .
 
-      # 6️⃣ Dispara o deploy no Render (Desenvolvimento)
+      # 5️⃣ Dispara o deploy no Render (Desenvolvimento)
       - name: Disparar deploy no Render (Desenvolvimento)
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL_DEV }}"
