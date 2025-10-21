@@ -22,14 +22,7 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      # 🔧 3️⃣ Substitui as variáveis no environment.dvp.ts
-      - name: Substituir variáveis de ambiente no Angular
-        run: |
-          sed -i "s|\$AMBIENTE|${{ vars.AMBIENTE }}|g" src/environments/environment.dvp.ts
-          sed -i "s|\$IS_PRODUCTION|${{ vars.IS_PRODUCTION }}|g" src/environments/environment.dvp.ts
-          sed -i "s|\$URL_API|${{ vars.URL_API }}|g" src/environments/environment.dvp.ts
-
-      # 4️⃣ Executa os testes unitários
+      # 3️⃣ Executa os testes unitários
       #- name: Executar testes unitários
       #run: npm test -- --watch=false --browsers=ChromeHeadless
 
