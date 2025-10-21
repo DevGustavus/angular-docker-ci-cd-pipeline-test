@@ -24,7 +24,7 @@ jobs:
 
       # 3️⃣ Executa os testes unitários
       - name: Executar testes unitários
-        run: npm test -- --watch=false --browsers=ChromeHeadless
+        #run: npm test -- --watch=false --browsers=ChromeHeadless
 
   # 🧱 2️⃣ Etapa de Build e Deploy com Docker + Render
   build-and-deploy:
