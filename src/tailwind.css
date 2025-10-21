@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* 🎨 Customizações do Tailwind */
+@theme {
+  --font-gelion-light: "GelionLight", sans-serif;
+  --font-gelion-regular: "GelionRegular", sans-serif;
+  --font-gelion-medium: "GelionMedium", sans-serif;
+  --font-gelion-medium-italic: "GelionMediumItalic", sans-serif;
+  --font-gelion-bold: "GelionBold", sans-serif;
+  --font-gelion-semibold: "GelionSemiBold", sans-serif;
+}
