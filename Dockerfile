@@ -1,8 +1,21 @@
 FROM node:22 AS builder
 WORKDIR /app
+
+# Recebe o argumento de build
+ARG ENV=production
+# Persiste no container se quiser
+ENV ENV=$ENV
+
+COPY package*.json ./
+RUN npm ci
 COPY . .
-RUN npm install
-RUN npm run build
+
+# Build Angular de acordo com o ENV
+RUN if [ "$ENV" = "dvp" ]; then \
+  npm run build:dvp; \
+  else \
+  npm run build; \
+  fi
 
 FROM nginx:alpine
 COPY --from=builder /app/dist/angular-docker-ci-cd-pipeline-test/browser /usr/share/nginx/html

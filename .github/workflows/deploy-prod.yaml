@@ -50,7 +50,7 @@ jobs:
 
       # 4️⃣ Valida o Dockerfile localmente
       - name: Validar Docker build (sem subir imagem)
-        run: docker build -t angular-docker-test .
+        run: docker build --build-arg ENV=production -t angular-docker-test .
 
       # 5️⃣ Dispara o deploy no Render via Webhook (Produção)
       - name: Disparar deploy no Render (Produção)
