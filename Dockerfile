@@ -10,17 +10,17 @@ ARG ENV
 ENV ENV=${ENV:-production}
 
 # Loga o valor recebido e executa o build correto
-RUN echo -e "\n=============================" && \
-  echo -e "🧱 Iniciando build com ENV: $ENV" && \
-  echo -e "=============================\n" && \
+RUN echo "\n=============================" && \
+  echo "🧱 Iniciando build com ENV: $ENV" && \
+  echo "=============================\n" && \
   if [ "$ENV" = "dvp" ]; then \
-  echo -e "🚀 Executando build de desenvolvimento (npm run build:dvp)"; \
+  echo "🚀 Executando build de desenvolvimento (npm run build:dvp)"; \
   npm run build:dvp; \
   else \
-  echo -e "🏗️ Executando build de produção (npm run build)"; \
+  echo "🏗️ Executando build de produção (npm run build)"; \
   npm run build; \
   fi && \
-  echo -e "\n✅ Build finalizado com sucesso para o ambiente: $ENV\n"
+  echo "\n✅ Build finalizado com sucesso para o ambiente: $ENV\n"
 
 FROM nginx:alpine
 COPY --from=builder /app/dist/angular-docker-ci-cd-pipeline-test/browser /usr/share/nginx/html
