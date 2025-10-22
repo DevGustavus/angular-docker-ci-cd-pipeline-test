@@ -7,7 +7,7 @@
     "start:dvp": "ng serve --configuration=dvp",
     "start:hml": "ng serve --configuration=hml",
     "start:prod": "ng serve --configuration=production",
-    "build": "ng build",
+    "build": "ng build --configuration=production",
     "build:dev": "ng build --configuration=development",
     "build:dvp": "ng build --configuration=dvp",
     "build:hml": "ng build --configuration=hml",

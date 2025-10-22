@@ -44,21 +44,15 @@ jobs:
           node-version: 22
       - run: npm ci
 
-      # 3️⃣ Copiar variáveis de ambiente do ambiente de produção
-      - name: Definir variáveis de ambiente (Produção)
-        run: |
-          cp .env.prd .env
-          echo "Arquivo .env.prd copiado para .env"
-
-      # 4️⃣ Build Angular usando o environment de produção
+      # 3️⃣ Build Angular usando o environment de produção
       - name: Testar build do Angular (production)
         run: npm run build
 
-      # 5️⃣ Valida o Dockerfile localmente
+      # 4️⃣ Valida o Dockerfile localmente
       - name: Validar Docker build (sem subir imagem)
         run: docker build -t angular-docker-test .
 
-      # 6️⃣ Dispara o deploy no Render via Webhook (Produção)
+      # 5️⃣ Dispara o deploy no Render via Webhook (Produção)
       - name: Disparar deploy no Render (Produção)
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL_PROD }}"
