@@ -1,5 +1,5 @@
 export const environment = {
-  ambiente: 'localhost',
-  is_production: false,
-  url_api: 'https://dummyjson.com/',
+  AMBIENTE: 'localhost',
+  IS_PRODUCTION: false,
+  URL_API: 'https://dummyjson.com/',
 };

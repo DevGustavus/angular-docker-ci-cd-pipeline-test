@@ -15,9 +15,9 @@ export class App {
   ngOnInit() {
     console.log('App initialized with title:', this.title());
     console.log('Environment:', {
-      ambiente: environment.ambiente,
-      is_production: environment.is_production,
-      url_api: environment.url_api,
+      AMBIENTE: environment.AMBIENTE,
+      IS_PRODUCTION: environment.IS_PRODUCTION,
+      URL_API: environment.URL_API,
     });
   }
 }
