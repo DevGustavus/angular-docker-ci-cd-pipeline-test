@@ -1,21 +1,26 @@
 FROM node:22 AS builder
 WORKDIR /app
 
-# Recebe o argumento de build
-ARG ENV=production
-# Persiste no container se quiser
-ENV ENV=$ENV
-
 COPY package*.json ./
 RUN npm ci
 COPY . .
 
-# Build Angular de acordo com o ENV
-RUN if [ "$ENV" = "dvp" ]; then \
+# Recebe valor da env var, se existir
+ARG ENV
+ENV ENV=${ENV:-production}
+
+# Loga o valor recebido e executa o build correto
+RUN echo "\n=============================" && \
+  echo "🧱 Iniciando build com ENV: $ENV" && \
+  echo "=============================\n" && \
+  if [ "$ENV" = "dvp" ]; then \
+  echo "🚀 Executando build de desenvolvimento (npm run build:dvp)"; \
   npm run build:dvp; \
   else \
+  echo "🏗️ Executando build de produção (npm run build)"; \
   npm run build; \
-  fi
+  fi && \
+  echo "\n✅ Build finalizado com sucesso para o ambiente: $ENV\n"
 
 FROM nginx:alpine
 COPY --from=builder /app/dist/angular-docker-ci-cd-pipeline-test/browser /usr/share/nginx/html
