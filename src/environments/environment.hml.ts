@@ -1,5 +1,5 @@
 export const environment = {
-  ambiente: '$AMBIENTE',
-  is_production: '$IS_PRODUCTION',
-  url_api: '$URL_API',
+  AMBIENTE: 'homologacao',
+  IS_PRODUCTION: false,
+  URL_API: 'https://dummyjson.com/',
 };

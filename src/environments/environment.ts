@@ -1,5 +1,5 @@
 export const environment = {
-  ambiente: '$AMBIENTE',
-  is_production: '$IS_PRODUCTION',
-  url_api: '$URL_API',
+  AMBIENTE: '$AMBIENTE',
+  IS_PRODUCTION: '$IS_PRODUCTION',
+  URL_API: '$URL_API',
 };
