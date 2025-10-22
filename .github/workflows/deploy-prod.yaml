@@ -52,7 +52,7 @@ jobs:
 
       # 4️⃣ Build Angular usando o environment de produção
       - name: Testar build do Angular (production)
-        run: npm run build -- --configuration=production
+        run: npm run build
 
       # 5️⃣ Valida o Dockerfile localmente
       - name: Validar Docker build (sem subir imagem)

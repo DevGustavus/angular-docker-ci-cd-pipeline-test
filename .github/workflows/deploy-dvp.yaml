@@ -46,7 +46,7 @@ jobs:
 
       # 3️⃣ Realiza build Angular usando o environment 'dvp'
       - name: Executar build do Angular (dvp)
-        run: npm run build -- --configuration=dvp
+        run: npm run build:dvp
 
       # 4️⃣ Valida o Dockerfile localmente
       - name: Validar Docker build (sem subir imagem)
