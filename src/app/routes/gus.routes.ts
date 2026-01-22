@@ -8,9 +8,16 @@ export const gusRoutes: Routes = [
   },
   {
     path: 'inicio',
+    loadComponent: () => import('../pages/inicio/inicio').then((m) => m.Inicio),
+  },
+  {
+    path: 'sobre',
+    loadComponent: () => import('../pages/sobre/sobre').then((m) => m.Sobre),
+  },
+  // Página exclusiva do Gus
+  {
+    path: 'dashboard',
     loadComponent: () =>
-      import('../pages/inicio/inicio').then(
-        (m) => m.Inicio
-      ),
+      import('../pages/dashboard/dashboard').then((m) => m.Dashboard),
   },
 ];

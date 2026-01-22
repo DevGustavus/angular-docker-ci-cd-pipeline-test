@@ -8,9 +8,16 @@ export const dockerRoutes: Routes = [
   },
   {
     path: 'inicio',
+    loadComponent: () => import('../pages/inicio/inicio').then((m) => m.Inicio),
+  },
+  {
+    path: 'sobre',
+    loadComponent: () => import('../pages/sobre/sobre').then((m) => m.Sobre),
+  },
+  // Página exclusiva do Docker
+  {
+    path: 'containers',
     loadComponent: () =>
-      import('../pages/inicio/inicio').then(
-        (m) => m.Inicio
-      ),
+      import('../pages/containers/containers').then((m) => m.Containers),
   },
 ];

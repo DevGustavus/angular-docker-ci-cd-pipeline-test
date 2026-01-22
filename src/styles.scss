@@ -2,3 +2,36 @@
 
 // ✅ Importa o Tailwind (em CSS puro)
 @import "./tailwind.css";
+
+// Estilos da diretiva de loading
+.btn-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner-border {
+  display: inline-block;
+  border: 0.25em solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spinner-rotate 0.75s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
